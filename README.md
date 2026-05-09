@@ -62,30 +62,36 @@ verifies their agreement.
 
 **Superclassical formulation** (Grössing et al. Eq. 2.10):
 
-$$v_{x,\text{SC}} = \frac{J_{\text{tot},x}}{P_{\text{tot}}}$$
+```
+v_x,SC = J_tot,x / P_tot
+```
 
 **Bohmian guidance equation:**
 
-$$v_{x,\text{Bohm}} = \frac{\hbar}{m} \operatorname{Im}\!\left(\frac{\partial_x \psi}{\psi}\right)$$
+```
+v_x,Bohm = (ℏ/m) · Im(∂ₓψ / ψ)
+```
 
 ### The Four-Term Current Decomposition
 
-The total probability current $J_x$ is decomposed into four physically distinct
+The total probability current `Jx` is decomposed into four physically distinct
 contributions:
 
 | Term | Expression | Physical meaning |
 |---|---|---|
-| `term1` | $R_1^2\, v_{1x}$ | Slit-1 self-current (full amplitude) |
-| `term2` | $R_2^2\, v_{2x}$ | Slit-2 self-current (attenuated by $\sqrt{a}$) |
-| `term3` | $R_1 R_2 (v_{1x}+v_{2x})\cos\phi$ | Conventional interference |
-| `term4` | $R_1 R_2 (u_{1x}-u_{2x})\sin\phi$ | Diffusive osmotic interference (sweeper driver) |
+| `term1` | `R1² · v1x` | Slit-1 self-current (full amplitude) |
+| `term2` | `R2² · v2x` | Slit-2 self-current (attenuated by √a) |
+| `term3` | `R1·R2·(v1x + v2x)·cos(φ)` | Conventional interference |
+| `term4` | `R1·R2·(u1x - u2x)·sin(φ)` | Diffusive osmotic interference (sweeper driver) |
 
-The osmotic velocity difference driving term4 is:
+The osmotic velocity difference driving `term4` is:
 
-$$u_{1x} - u_{2x} = \frac{\hbar\, d}{2m\sigma^2}$$
+```
+u1x - u2x = ℏd / (2mσ²)
+```
 
 This quantity is strictly independent of the attenuation parameter `a`. As the
-conventional interference term decays with $\sqrt{a}$, the osmotic driver maintains
+conventional interference term decays with √a, the osmotic driver maintains
 full geometric strength. This asymmetry is the physical mechanism behind the Quantum
 Sweeper Effect.
 
@@ -93,11 +99,13 @@ Sweeper Effect.
 
 Streamlines are integrated using the **spatial ODE formulation**:
 
-$$\frac{dx}{dy} = \frac{v_x}{v_y}$$
+```
+dx/dy = vx / vy
+```
 
-rather than the temporal form $dQ/dt = v_x$. Because $v_y = v_0$ exactly under the
-$y = v_0 t$ coordinate convention adopted by Grössing et al., the denominator never
-vanishes regardless of how small $P_{\text{tot}}$ becomes at extreme attenuation.
+rather than the temporal form `dQ/dt = vx`. Because `vy = v0` exactly under the
+`y = v0·t` coordinate convention adopted by Grössing et al., the denominator never
+vanishes regardless of how small `P_tot` becomes at extreme attenuation.
 This eliminates the numerical singularities that make the temporal form unstable in
 the sweeper regime.
 
@@ -111,7 +119,6 @@ quantum_sweeper_effect/
 ├── outputs/                    # Generated figures (created at runtime)
 │   ├── fig_density_trajectory_heatmap_4panel.png
 │   └── ...
-├── CLAUDE.md                   # Project root marker (used for path detection)
 └── README.md                   # This file
 ```
 
@@ -125,7 +132,7 @@ from setup through physics through validation.
 | Sections | Content |
 |---|---|
 | 1 | Introduction, research question, terminology, geometry conventions |
-| 2 to 4 | Physical constants, computational grid, probability density $P_{\text{tot}}$ |
+| 2 to 4 | Physical constants, computational grid, probability density `P_tot` |
 | 5 | Equivalence verification: superclassical vs. Bohmian velocity fields |
 | 6 to 10 | Sweeper signature: heat-flow driver, streamlines, attenuation sweep |
 | 11 to 14 | Validation suite, regime maps, interpretation and conclusion |
@@ -167,7 +174,7 @@ y_traj_arr = np.concatenate([
 ### Trajectory Seeds
 
 60 seeds per slit family are drawn from Born-rule Gaussian distributions
-($\sigma = \sigma_0$) centred on each slit position, then clipped to enforce
+(σ = σ₀) centred on each slit position, then clipped to enforce
 strict side separation.
 
 ```python
@@ -200,10 +207,10 @@ summary reports total counts.
 |---|---|
 | T1 | Probability density is non-negative everywhere |
 | T2 | Phase field φ is antisymmetric and zero on the axis |
-| T3 | $v_y = v_0$ exactly, derived from the structural Jy decomposition |
-| T4 | Bohmian-superclassical equivalence below relative error $10^{-10}$ at all test points |
-| T5 | Contrast law $(1+\sqrt{a})^2/4$ at the on-axis screen position across all five a-values |
-| T6 | Heat-flow map Q_heat is antisymmetric and scales as $\sqrt{a}$ |
+| T3 | `vy = v0` exactly, derived from the structural Jy decomposition |
+| T4 | Bohmian-superclassical equivalence below relative error `1e-10` at all test points |
+| T5 | Contrast law `(1 + √a)² / 4` at the on-axis screen position across all five a-values |
+| T6 | Heat-flow map Q_heat is antisymmetric and scales as √a |
 | T7 | Seeds are correctly separated and the y-grid is strictly monotonic |
 | T8 | Streamline families at a=1 fan outward symmetrically with correct sign |
 | T9 | Slit-2 beam is spatially compressed at a=1e-10 relative to the a=1 baseline |
